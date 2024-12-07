@@ -1,0 +1,10 @@
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>t", function()
+	vim.cmd('split')
+	vim.cmd('wincmd j')
+	vim.cmd('resize 10')
+	vim.cmd('term')
+	vim.cmd('startinsert')
+end, {noremap = true, silent = true})
+
+vim.keymap.set('n', 'U', function() vim.cmd('redo') end, {noremap=true})
