@@ -18,7 +18,7 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 4
 
 -- displays hybrid line numbers
--- vim.wo.number = true
+vim.wo.number = true
 -- vim.wo.relativenumber = true
 
 -- search ignores case
