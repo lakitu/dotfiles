@@ -2,9 +2,10 @@ require("krish.lazy")
 require("krish.remap")
 require("plugins.lsp-config")
 
-vim.o.background = "light"
+vim.o.background = "dark"
 vim.cmd [[colorscheme happy_hacking]]
--- vim.cmd [[colorscheme rose-pine]]
+-- vim.cmd [[colorscheme gruvbox]]
+-- vim.cmd [[colorscheme gruvbox-material]]
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wrap = false

@@ -15,9 +15,15 @@ require('lazy').setup({
     },
 
     { 'yorickpeterse/happy_hacking.vim', name="happy-hacking" },
+    { 'sainnhe/gruvbox-material', name="gruvbox-material" },
+    { 'morhetz/gruvbox', name="gruvbox" },
+
     {
         'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' }
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require('lualine').setup()
+        end,
     },
 
     {
