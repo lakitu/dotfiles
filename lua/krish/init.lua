@@ -3,10 +3,10 @@ require("krish.remap")
 require("plugins.lsp-config")
 local diagnostic = require("krish.diagnostic")
 
-vim.o.background = "dark"
-vim.cmd [[colorscheme happy_hacking]]
--- vim.cmd [[colorscheme gruvbox]]
--- vim.cmd [[colorscheme gruvbox-material]]
+-- vim.o.background = "light"
+-- vim.cmd [[colorscheme happy_hacking]]
+-- vim.cmd [[colorscheme evergarden]]
+vim.cmd [[colorscheme binary]]
 
 vim.api.nvim_create_autocmd("CursorMoved", {
   pattern = "*",

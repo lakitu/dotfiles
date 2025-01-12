@@ -15,8 +15,22 @@ require('lazy').setup({
     },
 
     { 'yorickpeterse/happy_hacking.vim', name="happy-hacking" },
-    -- { 'sainnhe/gruvbox-material', name="gruvbox-material" },
-    -- { 'morhetz/gruvbox', name="gruvbox" },
+    {
+        'comfysage/evergarden', name="evergarden",
+        opts = {
+            variant = 'medium'
+        }
+    },
+    {
+        "jackplus-xyz/binary.nvim", name="binary",
+        opts = {
+            style = "light",
+            colors = {
+                fg = "#303843",
+                bg = "#efeceb",
+            },
+        },
+    },
 
     {
         'nvim-lualine/lualine.nvim',

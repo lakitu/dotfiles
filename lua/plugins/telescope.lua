@@ -18,6 +18,12 @@ require('telescope').setup {
         ["k"] = require('telescope.actions').move_selection_previous,  -- Move up in normal mode
       }
     }
-  }
+  },
+
+  pickers = {
+      colorscheme = {
+          enable_preview = true
+      }
+  },
 }
 

@@ -60,7 +60,7 @@ local function echo_diagnostic()
     local lines = vim.split(diag.message, '\n', {})
     local message = lines[1]
 
-    if #lines > 1 and #message <= short_line_limit then
+    if #lines > 1 and #message + #lines[2] <= 80 then
       message = message .. ' ' .. lines[2]
     end
 
