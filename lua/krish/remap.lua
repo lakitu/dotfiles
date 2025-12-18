@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>")
 vim.keymap.set("n", "<leader>t", function()
 	vim.cmd('split')
 	vim.cmd('wincmd j')
@@ -10,3 +10,6 @@ end, {noremap = true, silent = true})
 vim.keymap.set('n', 'U', function() vim.cmd('redo') end, {noremap=true})
 
 vim.keymap.set('n', 'G', 'Gzz', {noremap=true, silent=true})
+
+vim.keymap.set('n', "<C-s>", '<CMD>w<CR>', {noremap=true, silent=true})
+

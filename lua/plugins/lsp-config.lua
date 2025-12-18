@@ -34,11 +34,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>td', function()
             -- vim.diagnostic.enable(not vim.diagnostic.is_enabled())
             if vim.diagnostic.is_enabled() then
-                vim.diagnostic.enable(true)
-                print("Diagnostics enabled")
-            else
                 vim.diagnostic.enable(false)
                 print("Diagnostics disabled")
+            else
+                vim.diagnostic.enable(true)
+                print("Diagnostics enabled")
             end
         end, { noremap = true, silent = true })
 
@@ -67,7 +67,7 @@ lspconfig.lua_ls.setup({
 })
 
 lspconfig.clangd.setup({
-    cmd = { "clangd", "--query-driver=C:/ProgramData/mingw64/mingw64/" },
+    cmd = { vim.fn.stdpath("data") .. "/mason/packages/clangd/clangd_19.1.2/bin/clangd", "--query-driver=C:/ProgramData/mingw64/mingw64/bin/gcc.exe" },
 });
 
 lspconfig.ocamllsp.setup({
