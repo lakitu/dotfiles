@@ -27,6 +27,10 @@ vim.opt.incsearch = true
 -- 4 line vertical buffer around cursor at all times
 vim.opt.scrolloff = 4
 
+-- Reserve a space in the gutter
+-- This will avoid an annoying layout shift in the screen
+vim.opt.signcolumn = 'yes'
+
 -- displays hybrid line numbers
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -42,3 +46,4 @@ vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 8
 vim.opt.softtabstop = 0
+

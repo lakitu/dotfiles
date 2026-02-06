@@ -63,13 +63,25 @@ require('lazy').setup({
                 dependencies = {
                         { 'hrsh7th/cmp-nvim-lsp' },
                         { 'williamboman/mason.nvim', },
-                        {
-                                'williamboman/mason-lspconfig.nvim',
-                                config = function()
-                                        require("mason").setup()
-                                        require("mason-lspconfig").setup()
-                                end
+                        { 'mason-org/mason-lspconfig.nvim',
+                                dependencies = { "williamboman/mason.nvim" },
+                                opts = {
+                                        ensure_installed = {
+                                                "lua_ls",
+                                                "clangd",
+                                                "rust_analyzer",
+                                                "pyright",
+                                                "typescript-language-server",
+                                        },
+                                },
                         },
+                        -- {
+                        --         'williamboman/mason-lspconfig.nvim',
+                        --         config = function()
+                        --                 require("mason").setup()
+                        --                 require("mason-lspconfig").setup()
+                        --         end
+                        -- },
                 },
         },
 
@@ -127,7 +139,11 @@ require('lazy').setup({
                 'stevearc/oil.nvim',
                 ---@module 'oil'
                 ---@type oil.SetupOpts
-                opts = {},
+                opts = {
+                        view_options = {
+                                show_hidden = true,
+                        },
+                },
         },
 
         {
