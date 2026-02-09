@@ -1,0 +1,7 @@
+{
+        "workspace.library": [
+                "C:/Users/krish/Documents/dotfiles",
+                "C:/Users/krish/AppData/local/nvim-data"
+        ],
+        "workspace.checkThirdParty": false
+}

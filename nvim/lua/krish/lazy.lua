@@ -5,7 +5,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require('lazy').setup({
-        -- telescope
+        -- file navigation 
         {
                 'nvim-telescope/telescope.nvim',
                 tag = '0.1.8',
@@ -14,6 +14,18 @@ require('lazy').setup({
                         require('plugins.telescope')
                 end,
         },
+
+        {
+                'stevearc/oil.nvim',
+                lazy=false,
+                opts = {
+                        view_options = {
+                                show_hidden = true,
+                                natural_order = true,
+                        },
+                },
+        },
+
 
         -- themes
         { 'yorickpeterse/happy_hacking.vim', name="happy-hacking" },
@@ -44,7 +56,6 @@ require('lazy').setup({
                 end,
         },
 
-        -- lsp support
         {
                 'nvim-treesitter/nvim-treesitter',
                 build = ':TSUpdate',
@@ -56,43 +67,28 @@ require('lazy').setup({
 
 
         -- LSP
-        {
-                'neovim/nvim-lspconfig',
-                cmd = {'LspInfo', 'LspInstall', 'LspStart'},
-                event = {'BufReadPre', 'BufNewFile'},
-                dependencies = {
-                        { 'hrsh7th/cmp-nvim-lsp' },
-                        { 'williamboman/mason.nvim', },
-                        { 'mason-org/mason-lspconfig.nvim',
-                                dependencies = { "williamboman/mason.nvim" },
-                                opts = {
-                                        ensure_installed = {
-                                                "lua_ls",
-                                                "clangd",
-                                                "rust_analyzer",
-                                                "pyright",
-                                                "typescript-language-server",
-                                        },
-                                },
+        { 'williamboman/mason.nvim', },
+        { 
+                'mason-org/mason-lspconfig.nvim',
+                dependencies = { "williamboman/mason.nvim" },
+                opts = {
+                        ensure_installed = {
+                                "lua_ls",
+                                "clangd",
+                                "rust_analyzer",
+                                "pyright",
+                                "typescript-language-server",
                         },
-                        -- {
-                        --         'williamboman/mason-lspconfig.nvim',
-                        --         config = function()
-                        --                 require("mason").setup()
-                        --                 require("mason-lspconfig").setup()
-                        --         end
-                        -- },
                 },
         },
 
-        -- Autocompletion
+        -- autcomplete
         {
-                'hrsh7th/nvim-cmp',
-                event = 'InsertEnter',
-                config = function()
-                        require("plugins.cmp")
-                end
-        },
+                'saghen/blink.cmp',
+                -- optional: provides snippets for the snippet source
+                dependencies = { 'rafamadriz/friendly-snippets' },
+
+        }
 
 
         -- convenience
@@ -132,17 +128,6 @@ require('lazy').setup({
                 keys = {
                         { '<C-_>', mode = { 'n', 'v' } },
                         { '<C-/>', mode = { 'n', 'v' } },
-                },
-        },
-
-        {
-                'stevearc/oil.nvim',
-                ---@module 'oil'
-                ---@type oil.SetupOpts
-                opts = {
-                        view_options = {
-                                show_hidden = true,
-                        },
                 },
         },
 
