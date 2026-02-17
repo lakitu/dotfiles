@@ -1,12 +1,10 @@
--- require("krish.lazy")
 require("krish.remap")
--- require("oil").setup()
 local diagnostic = require("krish.diagnostic")
 
 vim.o.background = "light"
--- vim.cmd [[colorscheme happy_hacking]]
+vim.cmd [[colorscheme happy_hacking]]
 -- vim.cmd [[colorscheme evergarden]]
-vim.cmd [[colorscheme binary]]
+-- vim.cmd [[colorscheme binary]]
 
 vim.api.nvim_create_autocmd("CursorMoved", {
   pattern = "*",

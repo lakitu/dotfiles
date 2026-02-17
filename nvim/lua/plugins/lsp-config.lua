@@ -40,6 +40,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+local servers = require("mason-lspconfig").get_installed_servers()
+
+for _, server in ipairs(servers) do
+        vim.lsp.config(server, {
+                capabilities=capabilities,
+        })
+end
+
 vim.lsp.config("lua_ls", {
         capabilities=capabilities,
         settings = {
@@ -54,7 +64,7 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("clangd", {
         capabilities=capabilities,
         cmd = {
-                vim.fn.stdpath("data") .. "/mason/packages/clangd/clangd_19.1.2/bin/clangd",
+                vim.fn.stdpath("data") .. "/mason/packages/clangd/clangd_21.1.8/bin/clangd",
                 "--query-driver=C:/ProgramData/mingw64/mingw64/bin/gcc.exe"
         },
 })
@@ -66,3 +76,4 @@ vim.lsp.config("ocamllsp", {
         root_markers = { "*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace" },
 })
 
+vim.lsp.enable(servers)

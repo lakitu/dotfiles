@@ -67,28 +67,42 @@ require('lazy').setup({
 
 
         -- LSP
-        { 'williamboman/mason.nvim', },
-        { 
-                'mason-org/mason-lspconfig.nvim',
-                dependencies = { "williamboman/mason.nvim" },
-                opts = {
-                        ensure_installed = {
-                                "lua_ls",
-                                "clangd",
-                                "rust_analyzer",
-                                "pyright",
-                                "typescript-language-server",
-                        },
-                },
-        },
-
-        -- autcomplete
         {
-                'saghen/blink.cmp',
-                -- optional: provides snippets for the snippet source
-                dependencies = { 'rafamadriz/friendly-snippets' },
+                'neovim/nvim-lspconfig',
+                cmd = {'LspInfo', 'LspInstall', 'LspStart'},
+                event = {'BufReadPre', 'BufNewFile'},
+                dependencies = {
+                        { 'williamboman/mason.nvim', },
+                        { 'mason-org/mason-lspconfig.nvim', },
+                        -- autcomplete
+                        {
+                                'saghen/blink.cmp',
+                                -- optional: provides snippets for the snippet source
+                                dependencies = { 'rafamadriz/friendly-snippets' },
+                                build = "cargo build --release",
+                                opts = {
+                                        fuzzy = { implementation = "prefer_rust", },
+                                        ghost_text = {
+                                                enabled = true,
+                                                show_with_menu = false,
+                                        },
+                                        menu = {
+                                                auto_show = false,
+                                        },
+                                        keymap = {
+                                                preset = 'default',
 
-        }
+                                                ['<C-j>'] = {'select_next', 'fallback'},
+                                                ['<C-k>'] = {'select_prev', 'fallback'},
+                                                ['<Tab>'] = {'accept', 'fallback'},
+					},
+                                }
+                        }
+                },
+                config = function()
+                        require("plugins.lsp-config")
+                end
+        },
 
 
         -- convenience
