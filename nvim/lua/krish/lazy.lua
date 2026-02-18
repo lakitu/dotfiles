@@ -81,7 +81,9 @@ require('lazy').setup({
                                 dependencies = { 'rafamadriz/friendly-snippets' },
                                 build = "cargo build --release",
                                 opts = {
-                                        fuzzy = { implementation = "prefer_rust", },
+                                        fuzzy = { 
+                                                implementation = "prefer_rust",
+                                        },
                                         ghost_text = {
                                                 enabled = true,
                                                 show_with_menu = false,
