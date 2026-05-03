@@ -28,6 +28,7 @@ require('lazy').setup({
 
 
         -- themes
+        { 'catppuccin/nvim', name='catppuccin' },
         { 'yorickpeterse/happy_hacking.vim', name="happy-hacking" },
         {
                 'comfysage/evergarden', name="evergarden",
@@ -74,32 +75,8 @@ require('lazy').setup({
                 dependencies = {
                         { 'williamboman/mason.nvim', },
                         { 'mason-org/mason-lspconfig.nvim', },
-                        -- autcomplete
-                        {
-                                'saghen/blink.cmp',
-                                -- optional: provides snippets for the snippet source
-                                dependencies = { 'rafamadriz/friendly-snippets' },
-                                build = "cargo build --release",
-                                opts = {
-                                        fuzzy = { 
-                                                implementation = "prefer_rust",
-                                        },
-                                        ghost_text = {
-                                                enabled = true,
-                                                show_with_menu = false,
-                                        },
-                                        menu = {
-                                                auto_show = false,
-                                        },
-                                        keymap = {
-                                                preset = 'default',
-
-                                                ['<C-j>'] = {'select_next', 'fallback'},
-                                                ['<C-k>'] = {'select_prev', 'fallback'},
-                                                ['<Tab>'] = {'accept', 'fallback'},
-					},
-                                }
-                        }
+                        -- autocomplete
+                        require('plugins.blink')
                 },
                 config = function()
                         require("plugins.lsp-config")
