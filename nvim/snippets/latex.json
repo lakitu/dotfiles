@@ -1,0 +1,29 @@
+{
+	"Document": {
+		"prefix": "document",
+		"body": [
+			"\\documentclass{article}",
+			"",
+			"\\usepackage{geometry}",
+			"\\usepackage{amsmath}",
+			"\\usepackage{amsfonts}",
+                        "\\usepackage{amssymb}",
+			"\\usepackage{graphicx}",
+			"\\usepackage[shortlabels]{enumitem}",
+			"\\usepackage{xcolor}",
+                        "\\usepackage{changepage}",
+			"",
+			"\\author{Krishin Wadhwani}",
+			"\\title{$1}",
+			"\\date{$2}",
+			"",
+			"\\begin{document}",
+			"",
+			"\\maketitle",
+			"",
+			"$3",
+			"",
+			"\\end{document}"
+		]
+	}
+}
