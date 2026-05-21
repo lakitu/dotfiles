@@ -85,8 +85,14 @@ local function echo_diagnostic()
   end, echo_timeout)
 end
 
-return {
-  show_line_diagnostics = show_line_diagnostics,
-  echo_diagnostic = echo_diagnostic,
-}
+-- return {
+--   show_line_diagnostics = show_line_diagnostics,
+--   echo_diagnostic = echo_diagnostic,
+-- }
 
+vim.api.nvim_create_autocmd("CursorMoved", {
+  pattern = "*",
+  callback = function()
+    echo_diagnostic()
+  end,
+})

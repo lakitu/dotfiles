@@ -1,14 +1,18 @@
+require("mason").setup()
+--require("lsp-config").setup()
+require("mason-lspconfig").setup()
+
 local keymaps = {
-                { 'K', '<cmd>lua vim.lsp.buf.hover()<cr>' },
-                { 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>' },
-                { 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
-                { 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>' },
-                { 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>' },
-                { 'gr', '<cmd>lua vim.lsp.buf.references()<cr>' },
-                { 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>' },
-                { '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>' },
-                { '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>' },
-                { '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>' }
+        { 'K', '<cmd>lua vim.lsp.buf.hover()<cr>' },
+        { 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>' },
+        { 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>' },
+        { 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>' },
+        { 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>' },
+        { 'gr', '<cmd>lua vim.lsp.buf.references()<cr>' },
+        { 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>' },
+        { '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>' },
+        { '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>' },
+        { '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>' }
 }
 
 -- This is where you enable features that only work
@@ -19,7 +23,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 -- keymaps
                 local opts = { buffer = event.buf }
 
-                for map in keymaps do
+                for _, map in ipairs(keymaps) do
                         vim.keymap.set('n', map[1], map[2], opts)
                 end
 

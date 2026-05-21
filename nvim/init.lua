@@ -1,13 +1,17 @@
--- Ensure Lazy.nvim is bootstrapped
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Load plugin configuration
-require("krish.lazy")
+-- install plugins
+require("krish.pack")
 
 require("krish")
 
+-- plugin config
+require('plugins.telescope')
+require('plugins.oil')
+require('plugins.themes')
+require('lualine').setup()
+require('plugins.blink')
+require('plugins.lsp-config')
+require('krish.diagnostic')
+require('plugins.harpoon')
+require('plugins.trouble')
+
+require("krish.remap")

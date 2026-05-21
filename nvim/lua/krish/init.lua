@@ -1,17 +1,12 @@
-require("krish.remap")
-local diagnostic = require("krish.diagnostic")
+-- set leader keys
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 vim.o.background = "light"
 vim.cmd [[colorscheme happy_hacking]]
 -- vim.cmd [[colorscheme evergarden]]
 -- vim.cmd [[colorscheme binary]]
 
-vim.api.nvim_create_autocmd("CursorMoved", {
-  pattern = "*",
-  callback = function()
-    diagnostic.echo_diagnostic()
-  end,
-})
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.wrap = false
