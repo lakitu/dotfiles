@@ -1,13 +1,16 @@
 local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 local act = wezterm.action;
--- local resurrect = wezterm.plugin.require("https://github.com/MLFlexer/resurrect.wezterm")
-
--- Settings
--- config.default_domain = 'WSL:Ubuntu'
--- config.default_cwd = '//wsl.localhost/Ubuntu/home/kachow'
 
 config.color_scheme = 'Gruvbox Dark (Gogh)'
+-- config.color_scheme = 'Gruvbox (Gogh)'
+config.front_end = "WebGpu"
+
+-- Claude Code should 
+-- wezterm.on("bell", function(window, pane)
+--         local msg = 'Claude code finished a job in the "' .. window:active_workspace() .. '" workspace'
+--         window:toast_notification('Claude Code', msg, nil, 3000)
+-- end)
 
 config.window_padding = {
         left=0,
@@ -22,7 +25,7 @@ local leader = ';'
 config.leader = { key = leader, mods = 'CTRL', timeout_milliseconds = 2000 }
 config.keys = {
         -- send C-a when pressing C-a twice
-        { 
+        {
                 key=leader, mods='LEADER',
                 action=act.SendKey {key=leader, mods="CTRL" }
         },
@@ -67,7 +70,14 @@ config.keys = {
                                 return
                         end
                         wezterm.log_info("tabs: ", tabs)
-                        local current_tab = active_tab(window)
+                        local current_tab
+                        for _, item in ipairs(window:tabs_with_info()) do
+                                if item.is_active then
+                                        curent_tab = item
+                                        break
+                                end
+                        end
+
                         -- local current_tab = window:active_tab()
                         wezterm.log_info(current_tab.index, current_tab)
                         local tab_to_merge_index = current_tab.index + 1;
@@ -108,7 +118,7 @@ config.keys = {
         { key='k', mods='LEADER|CTRL', action=act.ActivateTabRelative(1) },
         { key='l', mods='LEADER|CTRL', action=act.ActivateTabRelative(1) },
         { key='t', mods='LEADER', action=act.ShowTabNavigator },
-        -- { key='m', mods='LEADER', action=act.ActivateKeyTable {name="resize_move", one_shot=false }},
+        { key='m', mods='LEADER', action=act.ActivateKeyTable {name="resize_move", one_shot=false }},
         { key='t', mods='LEADER|CTRL', action=act.PromptInputLine {
                 description="Rename tab to: ",
                 action=wezterm.action_callback(function(window,_,line)
@@ -117,9 +127,6 @@ config.keys = {
                         end
                 end)
         } },
-                                
-
-
 
         -- workspace
         { key='w', mods='LEADER', action=act.ShowLauncherArgs { flags="WORKSPACES"} },
@@ -133,30 +140,42 @@ config.keys = {
                 end)
         } },
 
-    -- restore
-    -- { key='t', mods='CTRL|SHIFT', 
-    --   action=wezterm.action_callback(function(win, pane)
-            --   resurrect.fuzzy_loader.fuzzy_load(win, pane, function(id, label)
-                    --     local type = string.match(id, "^([^/]+)") -- match before '/'
-                    --     id = string.match(id, "([^/]+)$") -- match after '/'
-                    --     id = string.match(id, "(.+)%..+$") -- remove file extention
-                    --     local opts = {
-                    --       relative = true,
-                    --       restore_text = true,
-                    --       on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-                    --     }
-                    --     if type == "workspace" then
-                    --       local state = resurrect.state_manager.load_state(id, "workspace")
-                    --       resurrect.workspace_state.restore_workspace(state, opts)
-                    --     elseif type == "window" then
-                    --       local state = resurrect.state_manager.load_state(id, "window")
-                    --       resurrect.window_state.restore_window(pane:window(), state, opts)
-                    --     elseif type == "tab" then
-                    --       local state = resurrect.state_manager.load_state(id, "tab")
-                    --       resurrect.tab_state.restore_tab(pane:tab(), state, opts)
-                    --     end
-            --   end)
-    -- end), }
+        -- extract pane to new window
+        { key='b', mods='LEADER', action=wezterm.action_callback(
+                function(originalWindow, pane)
+                        local title = pane:tab():get_title()
+                        local tab, newWindow = pane:move_to_new_window()
+                        tab:set_title(title)
+                end
+        ),},
+        { key='b', mods='LEADER|CTRL', action=wezterm.action_callback(
+                function(window, _)
+                        local mux_window = window:mux_window()
+                        local workspace  = mux_window:get_workspace()
+                        local target     = mux_window:window_id()
+
+                        -- get all panes in our workspace not in our window
+                        for _,w in ipairs(wezterm.mux.all_windows()) do
+                                if w:window_id() == target or w:get_workspace() ~= workspace then
+                                        goto windowcontinue
+                                end
+                                for _,tab in ipairs(w:tabs()) do
+                                        local title = tab:get_title()
+                                        for _,p in ipairs(tab:panes()) do
+                                                local pane_id = p:pane_id()
+                                                wezterm.run_child_process({
+                                                        'wezterm', 'cli', 'move-pane-to-new-tab',
+                                                        '--pane-id', tostring(pane_id),
+                                                        '--window-id', tostring(target),
+                                                })
+                                                p:tab():set_title(title)
+                                        end
+                                end
+                                ::windowcontinue::
+                        end
+
+                end),
+        }
 }
 
 for i = 1,9 do
@@ -182,6 +201,7 @@ config.key_tables = {
                 { key='j', action=act.MoveTabRelative(-1)},
                 { key='k', action=act.MoveTabRelative(1)},
                 { key='l', action=act.MoveTabRelative(1)},
+                { key='m', action="PopKeyTable" },
                 { key='c', action="PopKeyTable" },
                 { key='r', action="PopKeyTable" },
                 { key='Escape', action="PopKeyTable"},
@@ -196,9 +216,6 @@ wezterm.on("update-right-status", function(window, pane)
         if window:leader_is_active() then stat = "LDR" end
         if window:active_key_table() then stat = window:active_key_table() end
 
-        local basename = function(s)
-                return string.gsub(s, "(.*[/\\])(.*)", "%2")
-        end
         local cwd_uri = pane:get_current_working_dir()
         local cwd = ""
         if cwd_uri then
@@ -212,12 +229,17 @@ wezterm.on("update-right-status", function(window, pane)
         }))
 end)
 
-function active_tab(window)
-        for _, item in ipairs(window:tabs_with_info()) do
-                if item.is_active then
-                        return item
-                end
-        end
-end
+config.wsl_domains  = {
+        {
+                name = 'WSL:Ubuntu-Saisystems',
+                distribution = 'Ubuntu-Saisystems',
+                default_cwd = '~'
+        },
+        {
+                name = 'WSL:Ubuntu-Home',
+                distribution = 'Ubuntu',
+                default_cwd = '~'
+        }
+}
 
 return config
