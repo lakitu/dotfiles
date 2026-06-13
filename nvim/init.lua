@@ -4,6 +4,7 @@ require("krish.pack")
 require("krish")
 
 -- plugin config
+-- require("git-worktree").setup()
 require('plugins.telescope')
 require('plugins.oil')
 require('plugins.themes')

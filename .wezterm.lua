@@ -2,8 +2,9 @@ local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 local act = wezterm.action;
 
-config.color_scheme = 'Gruvbox Dark (Gogh)'
+-- config.color_scheme = 'Gruvbox Dark (Gogh)'
 -- config.color_scheme = 'Gruvbox (Gogh)'
+config.color_scheme = 'catppuccin-latte'
 config.front_end = "WebGpu"
 
 -- Claude Code should 

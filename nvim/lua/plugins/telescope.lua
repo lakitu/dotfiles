@@ -1,11 +1,14 @@
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>pc', builtin.colorscheme, { desc = 'Telescope colorscheme' })
--- vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
--- vim.keymap.set('n', '<leader>pg', function()
-	--builtin.grep_string({ search = vim.fn.input("Grep > ") });
---end)
+-- vim.keymap.set('n', '<leader>pg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>pg', function()
+	builtin.grep_string({ search = vim.fn.input("Grep > ") });
+end)
+vim.keymap.set('n', '<leader>pw', function()
+        require('telescope').extensions.git_worktree.git_worktrees()
+end)
+vim.keymap.set('n', '<leader>pb', builtin.git_branches, { desc = 'Telescope git branches' })
 
 -- allows scrolling in telescope popup
 require('telescope').setup {
@@ -31,4 +34,7 @@ require('telescope').setup {
       },
   },
 }
+
+-- connect telescope to git-worktree.nvim
+require('telescope').load_extension('git_worktree')
 

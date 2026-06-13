@@ -9,3 +9,5 @@ require("binary").setup({
                 bg = "#efeceb",
         },
 })
+
+require("gruvbox").setup()

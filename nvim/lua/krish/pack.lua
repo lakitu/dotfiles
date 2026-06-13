@@ -13,6 +13,7 @@ vim.pack.add({
         { src=gh('comfysage/evergarden') },
         { src=gh('jackplus-xyz/binary.nvim'), name="binary" },
         { src=gh('projekt0n/github-nvim-theme'), name="github" },
+        { src=gh('ellisonleao/gruvbox.nvim'), name="gruvbox" },
 
         { src=gh('nvim-tree/nvim-web-devicons') },
         { src=gh('nvim-lualine/lualine.nvim') },
@@ -25,8 +26,11 @@ vim.pack.add({
         { src=gh('rafamadriz/friendly-snippets') },
         { src=gh('neovim/nvim-lspconfig') },
 
+        -- { src=gh('nvim-flutter/flutter-tools.nvim') },
+
         -- convenience
         { src=gh('theprimeagen/harpoon') },
+        { src=gh('lakitu/git-worktree.nvim') },
         { src=gh('folke/trouble.nvim') },
         { src=gh('tpope/vim-fugitive') },
         { src=gh('tpope/vim-surround') },

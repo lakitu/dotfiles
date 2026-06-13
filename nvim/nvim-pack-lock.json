@@ -24,13 +24,25 @@
       "rev": "347c62833eb1f1e80c3ae275b1122c2173c47614",
       "src": "https://github.com/comfysage/evergarden"
     },
+    "flutter-tools.nvim": {
+      "rev": "7d1acfd139215e02d2784733af69a61aaebe06e8",
+      "src": "https://github.com/nvim-flutter/flutter-tools.nvim"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
+    "git-worktree.nvim": {
+      "rev": "659465bf40f4ec38411bf4c790966afbd5a2ddd6",
+      "src": "git@github.com:lakitu/git-worktree.nvim.git"
+    },
     "github": {
       "rev": "c106c9472154d6b2c74b74565616b877ae8ed31d",
       "src": "https://github.com/projekt0n/github-nvim-theme"
+    },
+    "gruvbox": {
+      "rev": "154eb5ff5b96d0641307113fa385eaf0d36d9796",
+      "src": "https://github.com/ellisonleao/gruvbox.nvim"
     },
     "happy-hacking": {
       "rev": "e2e73d9cac5ff7acfc37bd090f1d709eac94c9a9",
