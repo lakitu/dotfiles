@@ -29,6 +29,7 @@ vim.pack.add({
         -- { src=gh('nvim-flutter/flutter-tools.nvim') },
 
         -- convenience
+        { src=gh('christoomey/vim-tmux-navigator') },
         { src=gh('theprimeagen/harpoon') },
         { src=gh('lakitu/git-worktree.nvim') },
         { src=gh('folke/trouble.nvim') },

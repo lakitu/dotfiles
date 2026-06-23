@@ -22,7 +22,16 @@ require('telescope').setup {
         ["j"] = require('telescope.actions').move_selection_next,  -- Move down in normal mode
         ["k"] = require('telescope.actions').move_selection_previous,  -- Move up in normal mode
       }
-    }
+    },
+    file_ignore_patterns = {
+      "%.git[/\\]",
+      "%.venv[/\\]",
+      "%.claude[/\\]",
+      "%.idea[/\\]",
+      "%.vscode[/\\]",
+      "node_modules[/\\]",
+      "__pycache__[/\\]",
+    },
   },
 
   pickers = {
@@ -30,7 +39,7 @@ require('telescope').setup {
           enable_preview = true
       },
       find_files = {
-              hidden = true,
+        hidden = true,
       },
   },
 }

@@ -48,14 +48,13 @@ local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 local servers = require("mason-lspconfig").get_installed_servers()
 
-for _, server in ipairs(servers) do
-        vim.lsp.config(server, {
-                capabilities=capabilities,
-        })
-end
+vim.lsp.config('*', {
+        capabilities=capabilities,
+})
 
 vim.lsp.config("lua_ls", {
         capabilities=capabilities,
+        root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
         settings = {
                 Lua = {
                         diagnostics = {
@@ -68,8 +67,8 @@ vim.lsp.config("lua_ls", {
 vim.lsp.config("clangd", {
         capabilities=capabilities,
         cmd = {
-                vim.fn.stdpath("data") .. "/mason/packages/clangd/clangd_21.1.8/bin/clangd",
-                "--query-driver=C:/ProgramData/mingw64/mingw64/bin/gcc.exe"
+                vim.fn.stdpath("data") .. "/mason/bin/clangd.cmd",
+                "--query-driver=C:/ProgramData/mingw64/mingw64/bin/g*.exe"
         },
 })
 
@@ -80,4 +79,33 @@ vim.lsp.config("ocamllsp", {
         root_markers = { "*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace" },
 })
 
-vim.lsp.enable(servers)
+require('nvim-treesitter.install').compilers = { 'gcc' }
+
+-- require('nvim-treesitter').install({ 'python', 'rust', 'javascript', 'typescript' })
+
+
+-- -- antlr4 tree-sitter setup
+-- -- 1. add the grammar dir to runtimepath
+-- vim.opt.runtimepath:append("C:/Users/krish/Desktop/development/antlr4/tree-sitter-antlr4")
+--
+-- -- 2. register the parser and enable highlighting for .g4 files
+-- vim.filetype.add({ extension = { g4 = "antlr4" } })
+-- vim.treesitter.language.add("antlr4", { path="C:/Users/krish/Desktop/development/antlr4/tree-sitter-antlr4/antlr4.dll" })
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--         pattern = "antlr4",
+--         callback = function() vim.treesitter.start() end,
+-- })
+--
+-- require("nvim-treesitter.parsers").antlr4 = {
+--         install_info = {
+--                 url = "C:/Users/krish/Desktop/development/antlr4/tree-sitter-antlr4",
+--                 files = { "src/parser.c" },
+--                 generate_requires_npm = false,
+--                 requires_generate_from_grammar = false,
+--         },
+--         filetype = "antlr4",
+-- }
+--
+--
+-- vim.lsp.enable(servers)
