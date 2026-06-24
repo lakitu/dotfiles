@@ -1,0 +1,19 @@
+[user]
+	name = Krishin Wadhwani
+	email = krishin901@gmail.com
+[core]
+	editor = nvim
+	autocrlf = input
+[alias]
+	logo = log --oneline
+	lg = log --oneline --graph --decorate --all
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[merge]
+        tool = nvimdiff
+[mergetool "nvimdiff"]
+        cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
